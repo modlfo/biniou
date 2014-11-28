@@ -47,7 +47,7 @@ ML = $(filter %.ml, $(SOURCES))
 CMI = $(ML:.ml=.cmi)
 CMO = $(ML:.ml=.cmo)
 CMX = $(ML:.ml=.cmx)
-O = $(ML:.ml=.o)
+O = $(ML:.ml=.obj)
 
 biniou.cma: $(SOURCES) Makefile
 	ocamlfind ocamlc -a $(FLAGS) -o biniou.cma \
@@ -80,7 +80,7 @@ install: META
 	test ! -f bdump.exe || cp bdump.exe $(BINDIR)/
 	ocamlfind install biniou META \
           $$(ls $(MLI) $(CMI) $(CMO) $(CMX) $(O) \
-             biniou.cma biniou.cmxa biniou.cmxs biniou.a)
+             biniou.cma biniou.cmxa biniou.cmxs biniou.lib)
 
 uninstall:
 	test ! -f $(BINDIR)/bdump || rm $(BINDIR)/bdump
@@ -90,7 +90,7 @@ uninstall:
 .PHONY: clean
 
 clean:
-	rm -f *.o *.a *.cm[ioxa] *.cmxa *~ *.annot
+	rm -f *.obj *.lib *.cm[ioxa] *.cmxa *~ *.annot
 	rm -f bdump bdump.exe test_biniou test_biniou.exe META
 	rm -rf doc
 	rm -f test.bin test_channels.bin
